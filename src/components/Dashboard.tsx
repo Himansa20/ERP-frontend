@@ -5,6 +5,12 @@ import CustomerPage from './CustomerPage';
 import ProductionOrderPage from './ProductionOrderPage';
 import SalesOrderPage from './SalesOrderPage';
 import ItemPage from './ItemPage';
+import EmployeePage from './EmployeePage';
+import WarehousePage from './WarehousePage';
+import BomPage from './BomPage';
+import InventoryTransactionPage from './InventoryTransactionPage';
+import StockByWarehousePage from './StockByWarehousePage';
+import AuditLogPage from './AuditLogPage';
 import {
   createTheme,
   ThemeProvider,
@@ -245,6 +251,8 @@ const navigationItems = [
   { text: 'Suppliers', icon: <BusinessIcon />, id: 'suppliers' },
   { text: 'Inventory', icon: <InventoryIcon />, id: 'inventory' },
   { text: 'Warehouses', icon: <WarehouseIcon />, id: 'warehouses' },
+  { text: 'Stock Transactions', icon: <ReceiptLongIcon />, id: 'inventory-transactions' },
+  { text: 'Stock By Warehouse', icon: <WarehouseIcon />, id: 'stock-by-warehouse' },
   { text: 'Purchase Orders', icon: <DescriptionIcon />, id: 'purchase-orders' },
   { text: 'Sales Orders', icon: <ShoppingCartIcon />, id: 'sales-orders' },
   { text: 'Production Orders', icon: <PrecisionManufacturingIcon />, id: 'production-orders' },
@@ -1606,12 +1614,24 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
               <SupplierPage />
             ) : activeView === 'customers' ? (
               <CustomerPage />
+            ) : activeView === 'employees' ? (
+              <EmployeePage />
             ) : activeView === 'production-orders' ? (
               <ProductionOrderPage />
             ) : activeView === 'sales-orders' ? (
               <SalesOrderPage />
             ) : activeView === 'inventory' ? (
               <ItemPage />
+            ) : activeView === 'warehouses' ? (
+              <WarehousePage />
+            ) : activeView === 'bom' ? (
+              <BomPage />
+            ) : activeView === 'inventory-transactions' ? (
+              <InventoryTransactionPage />
+            ) : activeView === 'stock-by-warehouse' ? (
+              <StockByWarehousePage />
+            ) : activeView === 'audit-logs' ? (
+              <AuditLogPage />
             ) : (
               <ConstructionPlaceholder view={activeView} />
             )}

@@ -40,6 +40,13 @@ export const parseItem = (raw: any): ParsedItem => {
   const descStr = raw.description || '';
   let itemCode = `ITM-${raw.itemId?.toString().padStart(4, '0') || '0000'}`;
   let itemCategory = raw.itemType || 'Raw Materials';
+  
+  if (itemCategory === 'FinishedProduct') {
+    itemCategory = 'Finished Products';
+  } else if (itemCategory === 'RawMaterial') {
+    itemCategory = 'Raw Materials';
+  }
+  
   let itemType = 'Standard';
   let standardCost = 0;
   let cleanDesc = descStr;
@@ -53,6 +60,12 @@ export const parseItem = (raw: any): ParsedItem => {
       else if (part.startsWith('COST:')) standardCost = Number(part.replace('COST:', '')) || 0;
       else if (part.startsWith('DESC:')) cleanDesc = part.replace('DESC:', '');
     });
+  }
+
+  if (itemCategory === 'FinishedProduct') {
+    itemCategory = 'Finished Products';
+  } else if (itemCategory === 'RawMaterial') {
+    itemCategory = 'Raw Materials';
   }
 
   return {
@@ -128,9 +141,13 @@ export const itemService = {
       item.description
     );
 
+    const dbItemType = item.itemCategory === 'Finished Products' ? 'FinishedProduct'
+                     : item.itemCategory === 'Raw Materials' ? 'RawMaterial'
+                     : item.itemCategory;
+
     const payload = {
       itemName: item.itemName,
-      itemType: item.itemCategory, // Store category in itemType database field
+      itemType: dbItemType,
       unitOfMeasure: item.unitOfMeasure,
       currentStock: item.currentStock,
       reorderLevel: item.reorderLevel,
@@ -153,9 +170,13 @@ export const itemService = {
       item.description
     );
 
+    const dbItemType = item.itemCategory === 'Finished Products' ? 'FinishedProduct'
+                     : item.itemCategory === 'Raw Materials' ? 'RawMaterial'
+                     : item.itemCategory;
+
     const payload = {
       itemName: item.itemName,
-      itemType: item.itemCategory, // Store category in itemType database field
+      itemType: dbItemType,
       unitOfMeasure: item.unitOfMeasure,
       currentStock: item.currentStock,
       reorderLevel: item.reorderLevel,
