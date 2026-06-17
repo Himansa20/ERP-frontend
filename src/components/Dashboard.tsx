@@ -11,6 +11,7 @@ import BomPage from './BomPage';
 import InventoryTransactionPage from './InventoryTransactionPage';
 import StockByWarehousePage from './StockByWarehousePage';
 import AuditLogPage from './AuditLogPage';
+import PurchaseOrderPage from './PurchaseOrderPage';
 import {
   createTheme,
   ThemeProvider,
@@ -1632,6 +1633,8 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
               <StockByWarehousePage />
             ) : activeView === 'audit-logs' ? (
               <AuditLogPage />
+            ) : activeView === 'purchase-orders' ? (
+              <PurchaseOrderPage />
             ) : (
               <ConstructionPlaceholder view={activeView} />
             )}

@@ -1,0 +1,162 @@
+import axios from 'axios';
+
+export interface PurchaseOrderItem {
+  purchaseOrderItemId?: number;
+  itemId: number;
+  quantity: number;
+  unitPrice: number;
+  lineTotal?: number;
+  description?: string;
+}
+
+export interface PurchaseOrder {
+  purchaseOrderId: number;
+  poNumber?: string;
+  supplierId: number;
+  orderDate?: string;
+  expectedDeliveryDate?: string;
+  totalAmount: number;
+  status: string; // DRAFT, PENDING_APPROVAL, APPROVED, REJECTED, RECEIVED
+  createdBy?: string;
+  createdDate?: string;
+  lastUpdatedDate?: string;
+  notes?: string;
+  purchaseOrderItems: PurchaseOrderItem[];
+  
+  // Client calculated or mapped properties
+  supplierName?: string;
+  subtotal?: number;
+  tax?: number;
+}
+
+export interface PurchaseOrderInput {
+  supplierId: number;
+  orderDate?: string;
+  expectedDeliveryDate?: string;
+  status: string;
+  notes?: string;
+  purchaseOrderItems: PurchaseOrderItem[];
+  totalAmount: number;
+}
+
+export interface PaginatedPurchaseOrders {
+  content: PurchaseOrder[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+}
+
+export interface DropdownItem {
+  id: number;
+  name: string;
+  email?: string;
+  address?: string;
+  phone?: string;
+}
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  const tokenType = localStorage.getItem('tokenType') || 'Bearer';
+  return token ? { Authorization: `${tokenType} ${token}` } : {};
+};
+
+export const purchaseOrderService = {
+  async getPurchaseOrders(page: number = 0, size: number = 10): Promise<PaginatedPurchaseOrders> {
+    const response = await axios.get<any>(`/api/purchase-orders`, {
+      headers: getAuthHeaders(),
+      params: {
+        page,
+        size,
+        sort: 'purchaseOrderId,desc'
+      }
+    });
+
+    if (response.data && Array.isArray(response.data.content)) {
+      return {
+        content: response.data.content,
+        totalElements: response.data.totalElements ?? response.data.content.length,
+        totalPages: response.data.totalPages ?? 1,
+        size: response.data.size ?? size,
+        number: response.data.number ?? page,
+      };
+    }
+
+    if (Array.isArray(response.data)) {
+      return {
+        content: response.data,
+        totalElements: response.data.length,
+        totalPages: 1,
+        size: response.data.length,
+        number: 0,
+      };
+    }
+
+    return {
+      content: [],
+      totalElements: 0,
+      totalPages: 0,
+      size: size,
+      number: page,
+    };
+  },
+
+  async getPurchaseOrderById(id: number): Promise<PurchaseOrder> {
+    const response = await axios.get<PurchaseOrder>(`/api/purchase-orders/${id}`, {
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  },
+
+  async createPurchaseOrder(po: PurchaseOrderInput): Promise<PurchaseOrder> {
+    const response = await axios.post<PurchaseOrder>(`/api/purchase-orders`, po, {
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  },
+
+  async updatePurchaseOrder(id: number, po: PurchaseOrderInput): Promise<PurchaseOrder> {
+    const response = await axios.put<PurchaseOrder>(`/api/purchase-orders/${id}`, po, {
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  },
+
+  async deletePurchaseOrder(id: number): Promise<void> {
+    await axios.delete(`/api/purchase-orders/${id}`, {
+      headers: getAuthHeaders(),
+    });
+  },
+
+  // Dropdown list helper APIs
+  async getSuppliers(): Promise<DropdownItem[]> {
+    try {
+      const response = await axios.get<any>(`/api/suppliers`, {
+        headers: getAuthHeaders(),
+        params: { page: 0, size: 500 }
+      });
+      const list = response.data?.content || response.data || [];
+      return list.map((s: any) => ({
+        id: s.supplierId || s.id,
+        name: s.supplierName || s.name || `Supplier #${s.supplierId || s.id}`,
+        email: s.email,
+        address: s.address,
+        phone: s.contactNo
+      }));
+    } catch {
+      return [];
+    }
+  },
+
+  async getItems(): Promise<any[]> {
+    try {
+      const response = await axios.get<any>(`/api/items`, {
+        headers: getAuthHeaders(),
+        params: { page: 0, size: 500 }
+      });
+      return response.data?.content || response.data || [];
+    } catch {
+      return [];
+    }
+  }
+};
