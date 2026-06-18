@@ -206,7 +206,7 @@ export default function EmployeeFormDialog({
               required
               fullWidth
               label="Email Address"
-              placeholder="e.g. alice.smith@titanerp.com"
+              placeholder="e.g. alice.smith@bluewhale.com"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

@@ -105,7 +105,7 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
             </Grid>
             <Grid item xs={12} sm={4}>
               <Typography variant="body2" sx={{ color: '#64748B' }}>
-                Quickly lookup raw material usage and cost rolls for any manufactured asset in the Titan catalog.
+                Quickly lookup raw material usage and cost rolls for any manufactured asset in the BlueWhale catalog.
               </Typography>
             </Grid>
           </Grid>

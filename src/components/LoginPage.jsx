@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Eye, EyeOff, Lock, User, ShieldAlert, CheckCircle, Factory } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 export default function LoginPage({ onLoginSuccess }) {
   const [username, setUsername] = useState('');
@@ -80,12 +81,12 @@ export default function LoginPage({ onLoginSuccess }) {
           
           {/* Top Logo and Header */}
           <div className="relative z-10 flex items-center gap-3">
-            <div className="bg-white/10 p-2 rounded-lg backdrop-blur-sm">
-              <Factory className="h-8 w-8 text-white" />
+            <div className="bg-white p-1 rounded-lg backdrop-blur-sm flex items-center justify-center h-12 w-12 overflow-hidden">
+              <img src={logoImg} alt="BlueWhale Logo" className="h-full w-full object-contain" />
             </div>
             <div>
-              <span className="font-bold text-lg tracking-wider uppercase">Titan</span>
-              <span className="text-blue-200 text-sm block -mt-1">Industries</span>
+              <span className="font-bold text-lg tracking-wider uppercase">BlueWhale</span>
+              <span className="text-blue-200 text-sm block -mt-1">Manufacturing</span>
             </div>
           </div>
 
@@ -101,7 +102,7 @@ export default function LoginPage({ onLoginSuccess }) {
 
           {/* Footer Info */}
           <div className="relative z-10 text-xs text-blue-200/80 mt-4">
-            &copy; 2026 Titan Industries. All rights reserved.
+            &copy; 2026 BlueWhale Manufacturing. All rights reserved.
           </div>
         </div>
 

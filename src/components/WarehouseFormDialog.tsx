@@ -403,7 +403,7 @@ export default function WarehouseFormDialog({
             <TextField
               fullWidth
               label="Email Address"
-              placeholder="e.g. j.doe@titanerp.com"
+              placeholder="e.g. j.doe@bluewhale.com"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

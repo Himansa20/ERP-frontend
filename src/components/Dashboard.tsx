@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import logoImg from '../assets/logo.png';
 import SupplierPage from './SupplierPage';
 import CustomerPage from './CustomerPage';
 import ProductionOrderPage from './ProductionOrderPage';
@@ -290,7 +291,7 @@ function ConstructionPlaceholder({ view }: { view: string }) {
         {viewName} Module
       </Typography>
       <Typography variant="body2" sx={{ color: '#64748B', maxWidth: 400, textAlign: 'center' }}>
-        This module is currently under construction. Titan ERP is actively integrating this page with the manufacturing system.
+        This module is currently under construction. BlueWhale Manufacturing ERP is actively integrating this page with the manufacturing system.
       </Typography>
     </Box>
   );
@@ -491,20 +492,23 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
       >
         <Box
           sx={{
-            bgcolor: '#2563EB',
-            color: 'white',
+            bgcolor: 'white',
             borderRadius: 2,
-            p: 1,
+            p: 0.5,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            height: 40,
+            width: 40,
+            overflow: 'hidden',
+            border: '1px solid #E2E8F0',
           }}
         >
-          <FactoryIcon sx={{ fontSize: 24 }} />
+          <img src={logoImg} alt="BlueWhale Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </Box>
         <Box>
           <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>
-            TITAN ERP
+            BLUEWHALE ERP
           </Typography>
           <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600 }}>
             Enterprise Edition
@@ -636,7 +640,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                 </IconButton>
               )}
               <Typography variant="h6" noWrap component="div" sx={{ color: '#0F172A', fontWeight: 700 }}>
-                Titan Manufacturing ERP
+                BlueWhale Manufacturing ERP
               </Typography>
             </Box>
 
@@ -779,7 +783,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                       Production & Analytics Dashboard
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#64748B', mt: 0.5, display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <span>Enterprise operations overview for Titan Industries</span>
+                      <span>Enterprise operations overview for BlueWhale Manufacturing</span>
                       <Box component="span" sx={{ width: 4, height: 4, bgcolor: '#94A3B8', borderRadius: '50%' }} />
                       <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}</span>
                     </Typography>

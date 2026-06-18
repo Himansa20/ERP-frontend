@@ -142,7 +142,7 @@ export default function InvoiceViewerDialog({
             <Grid container spacing={3} sx={{ mb: 4 }}>
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="h5" sx={{ fontWeight: 800, color: '#2563EB', mb: 0.5 }}>
-                  TITAN MFG CORP
+                  BLUEWHALE MFG CORP
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
                   100 Industrial Parkway, Suite A
@@ -151,7 +151,7 @@ export default function InvoiceViewerDialog({
                   Detroit, MI 48201
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
-                  Support: billing@titanmfg.com
+                  Support: billing@bluewhale.com
                 </Typography>
               </Grid>
               <Grid size={{ xs: 12, sm: 6 }} sx={{ textAlign: { xs: 'left', sm: 'right' } }}>

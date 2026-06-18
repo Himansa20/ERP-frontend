@@ -208,7 +208,7 @@ export default function PurchaseOrderAnalytics({
         list = [
           { name: 'Apex Metal Solutions', count: 5, spend: 45000, lastDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString() },
           { name: 'Global Polymers Ltd', count: 3, spend: 28000, lastDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString() },
-          { name: 'Titan Electronics Corp', count: 2, spend: 18500, lastDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString() },
+          { name: 'BlueWhale Electronics Corp', count: 2, spend: 18500, lastDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString() },
           { name: 'Swift Logistics Group', count: 1, spend: 9200, lastDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString() },
         ];
       }
