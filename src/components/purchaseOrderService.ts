@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export interface PurchaseOrderItem {
   purchaseOrderItemId?: number;
-  itemId: number;
+  rawMaterialId: number;
   quantity: number;
   unitPrice: number;
   lineTotal?: number;
@@ -14,7 +14,7 @@ export interface PurchaseOrder {
   poNumber?: string;
   supplierId: number;
   orderDate?: string;
-  expectedDeliveryDate?: string;
+  expectedDate?: string;
   totalAmount: number;
   status: string; // DRAFT, PENDING_APPROVAL, APPROVED, REJECTED, RECEIVED
   createdBy?: string;
@@ -32,7 +32,7 @@ export interface PurchaseOrder {
 export interface PurchaseOrderInput {
   supplierId: number;
   orderDate?: string;
-  expectedDeliveryDate?: string;
+  expectedDate?: string;
   status: string;
   notes?: string;
   purchaseOrderItems: PurchaseOrderItem[];
@@ -55,6 +55,59 @@ export interface DropdownItem {
   phone?: string;
 }
 
+const mapFrontendStatusToBackend = (status?: string): string => {
+  if (!status) return 'Pending';
+  switch (status.toUpperCase()) {
+    case 'DRAFT':
+      return 'Pending';
+    case 'PENDING_APPROVAL':
+      return 'PendingApproval';
+    case 'APPROVED':
+      return 'Approved';
+    case 'RECEIVED':
+      return 'Received';
+    case 'REJECTED':
+    case 'CANCELLED':
+      return 'Cancelled';
+    default:
+      return status;
+  }
+};
+
+const mapBackendStatusToFrontend = (status?: string): string => {
+  if (!status) return 'DRAFT';
+  switch (status) {
+    case 'Pending':
+      return 'DRAFT';
+    case 'PendingApproval':
+      return 'PENDING_APPROVAL';
+    case 'Approved':
+      return 'APPROVED';
+    case 'Received':
+      return 'RECEIVED';
+    case 'Cancelled':
+      return 'REJECTED';
+    default:
+      return status.toUpperCase();
+  }
+};
+
+const mapPurchaseOrderFromBackend = (po: any): PurchaseOrder => {
+  if (!po) return po;
+  return {
+    ...po,
+    status: mapBackendStatusToFrontend(po.status)
+  };
+};
+
+const mapPurchaseOrderInputToBackend = (po: PurchaseOrderInput): PurchaseOrderInput => {
+  if (!po) return po;
+  return {
+    ...po,
+    status: mapFrontendStatusToBackend(po.status)
+  };
+};
+
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
   const tokenType = localStorage.getItem('tokenType') || 'Bearer';
@@ -74,7 +127,7 @@ export const purchaseOrderService = {
 
     if (response.data && Array.isArray(response.data.content)) {
       return {
-        content: response.data.content,
+        content: response.data.content.map(mapPurchaseOrderFromBackend),
         totalElements: response.data.totalElements ?? response.data.content.length,
         totalPages: response.data.totalPages ?? 1,
         size: response.data.size ?? size,
@@ -84,7 +137,7 @@ export const purchaseOrderService = {
 
     if (Array.isArray(response.data)) {
       return {
-        content: response.data,
+        content: response.data.map(mapPurchaseOrderFromBackend),
         totalElements: response.data.length,
         totalPages: 1,
         size: response.data.length,
@@ -105,21 +158,21 @@ export const purchaseOrderService = {
     const response = await axios.get<PurchaseOrder>(`/api/purchase-orders/${id}`, {
       headers: getAuthHeaders(),
     });
-    return response.data;
+    return mapPurchaseOrderFromBackend(response.data);
   },
 
   async createPurchaseOrder(po: PurchaseOrderInput): Promise<PurchaseOrder> {
-    const response = await axios.post<PurchaseOrder>(`/api/purchase-orders`, po, {
+    const response = await axios.post<PurchaseOrder>(`/api/purchase-orders`, mapPurchaseOrderInputToBackend(po), {
       headers: getAuthHeaders(),
     });
-    return response.data;
+    return mapPurchaseOrderFromBackend(response.data);
   },
 
   async updatePurchaseOrder(id: number, po: PurchaseOrderInput): Promise<PurchaseOrder> {
-    const response = await axios.put<PurchaseOrder>(`/api/purchase-orders/${id}`, po, {
+    const response = await axios.put<PurchaseOrder>(`/api/purchase-orders/${id}`, mapPurchaseOrderInputToBackend(po), {
       headers: getAuthHeaders(),
     });
-    return response.data;
+    return mapPurchaseOrderFromBackend(response.data);
   },
 
   async deletePurchaseOrder(id: number): Promise<void> {

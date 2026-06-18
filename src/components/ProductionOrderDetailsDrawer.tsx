@@ -52,9 +52,10 @@ export default function ProductionOrderDetailsDrawer({
     }
   };
 
-  const status = order.status?.toUpperCase() || 'PENDING';
-  const isCompleted = status === 'COMPLETED';
-  const isInProgress = status === 'IN_PROGRESS' || status === 'RUNNING';
+  const status = order.status || 'Planned';
+  const isCompleted = status === 'Completed';
+  const isInProgress = status === 'InProgress';
+  const isCancelled = status === 'Cancelled';
 
   const planned = Number(order.quantityToProduce || 0);
   const produced = Number(order.quantityProduced || 0);
@@ -139,14 +140,14 @@ export default function ProductionOrderDetailsDrawer({
                       ORDER STATUS
                     </Typography>
                     <Chip
-                      label={isCompleted ? 'Completed' : isInProgress ? 'In Progress' : 'Pending'}
+                      label={isCompleted ? 'Completed' : isInProgress ? 'In Progress' : isCancelled ? 'Cancelled' : 'Planned'}
                       size="small"
                       sx={{
                         fontWeight: 700,
                         fontSize: '0.75rem',
-                        color: isCompleted ? '#16A34A' : isInProgress ? '#2563EB' : '#475569',
-                        bgcolor: isCompleted ? '#DCFCE7' : isInProgress ? '#EFF6FF' : '#F1F5F9',
-                        border: `1px solid ${isCompleted ? '#BBF7D0' : isInProgress ? '#BFDBFE' : '#E2E8F0'}`,
+                        color: isCompleted ? '#16A34A' : isInProgress ? '#2563EB' : isCancelled ? '#DC2626' : '#475569',
+                        bgcolor: isCompleted ? '#DCFCE7' : isInProgress ? '#EFF6FF' : isCancelled ? '#FEF2F2' : '#F1F5F9',
+                        border: `1px solid ${isCompleted ? '#BBF7D0' : isInProgress ? '#BFDBFE' : isCancelled ? '#FECACA' : '#E2E8F0'}`,
                       }}
                     />
                   </Box>

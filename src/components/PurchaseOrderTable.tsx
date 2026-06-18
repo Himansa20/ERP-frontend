@@ -123,7 +123,7 @@ export default function PurchaseOrderTable({
       renderCell: (params) => <span>{formatDate(params.value || params.row.createdDate)}</span>,
     },
     {
-      field: 'expectedDeliveryDate',
+      field: 'expectedDate',
       headerName: 'Expected Delivery',
       width: 150,
       renderCell: (params) => {

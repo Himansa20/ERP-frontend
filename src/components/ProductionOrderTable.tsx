@@ -50,22 +50,27 @@ export default function ProductionOrderTable({
   };
 
   const getStatusChip = (statusStr: string) => {
-    const status = statusStr?.toUpperCase() || 'PENDING';
-    let label = 'Pending';
+    const status = statusStr || 'Planned';
+    let label = 'Planned';
     let color = '#475569';
     let bgcolor = '#F1F5F9';
     let border = '#E2E8F0';
 
-    if (status === 'COMPLETED') {
+    if (status === 'Completed') {
       label = 'Completed';
       color = '#16A34A';
       bgcolor = '#DCFCE7';
       border = '#BBF7D0';
-    } else if (status === 'IN_PROGRESS' || status === 'RUNNING') {
+    } else if (status === 'InProgress') {
       label = 'In Progress';
       color = '#2563EB';
       bgcolor = '#EFF6FF';
       border = '#BFDBFE';
+    } else if (status === 'Cancelled') {
+      label = 'Cancelled';
+      color = '#DC2626';
+      bgcolor = '#FEF2F2';
+      border = '#FECACA';
     }
 
     return (
@@ -200,7 +205,7 @@ export default function ProductionOrderTable({
       headerAlign: 'right',
       renderCell: (params) => {
         const order = params.row as ProductionOrder;
-        const isCompleted = order.status?.toUpperCase() === 'COMPLETED';
+        const isCompleted = order.status === 'Completed';
         return (
           <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'flex-end', height: '100%', alignItems: 'center' }}>
             <IconButton

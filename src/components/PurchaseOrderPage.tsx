@@ -287,7 +287,7 @@ export default function PurchaseOrderPage() {
         poNumVal,
         `"${supplierNameVal.replace(/"/g, '""')}"`,
         new Date(o.orderDate || '').toLocaleDateString(),
-        o.expectedDeliveryDate ? new Date(o.expectedDeliveryDate).toLocaleDateString() : 'N/A',
+        o.expectedDate ? new Date(o.expectedDate).toLocaleDateString() : 'N/A',
         o.totalAmount,
         o.status || 'DRAFT',
         o.createdBy || 'System User',
@@ -351,7 +351,7 @@ export default function PurchaseOrderPage() {
       {/* KPI Cards Row */}
       <Grid container spacing={2.5} sx={{ mb: 4 }}>
         {/* Card 1: Total Purchase Orders */}
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -370,7 +370,7 @@ export default function PurchaseOrderPage() {
         </Grid>
 
         {/* Card 2: Pending Approval */}
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -389,7 +389,7 @@ export default function PurchaseOrderPage() {
         </Grid>
 
         {/* Card 3: Approved Orders */}
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -408,7 +408,7 @@ export default function PurchaseOrderPage() {
         </Grid>
 
         {/* Card 4: Total Procurement Value */}
-        <Grid item xs={12} sm={6} md={2.5}>
+        <Grid size={{ xs: 12, sm: 6, md: 2.5 }}>
           <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -427,7 +427,7 @@ export default function PurchaseOrderPage() {
         </Grid>
 
         {/* Card 5: This Month Purchase Orders */}
-        <Grid item xs={12} sm={6} md={2}>
+        <Grid size={{ xs: 12, sm: 6, md: 2 }}>
           <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -446,7 +446,7 @@ export default function PurchaseOrderPage() {
         </Grid>
 
         {/* Card 6: Suppliers Used */}
-        <Grid item xs={12} sm={6} md={1.5}>
+        <Grid size={{ xs: 12, sm: 6, md: 1.5 }}>
           <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>

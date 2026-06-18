@@ -190,11 +190,11 @@ export default function StockByWarehousePage() {
       renderCell: (params) => {
         const row = params.row as StockTableRow;
         return (
-          <Box>
-            <Typography variant="body2" sx={{ fontWeight: 600, color: '#1E293B' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%', py: 1 }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, color: '#1E293B', lineHeight: 1.2 }}>
               {params.value}
             </Typography>
-            <Typography variant="caption" color="textSecondary">
+            <Typography variant="caption" color="textSecondary" sx={{ mt: 0.5, lineHeight: 1.2 }}>
               Item ID: #{row.itemId}
             </Typography>
           </Box>
@@ -490,7 +490,7 @@ export default function StockByWarehousePage() {
               pagination: { paginationModel: { page: 0, pageSize: 10 } }
             }}
             disableRowSelectionOnClick
-            rowHeight={54}
+            rowHeight={64}
             columnHeaderHeight={48}
             sx={{
               border: 'none',

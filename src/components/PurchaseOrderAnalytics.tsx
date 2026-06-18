@@ -236,7 +236,7 @@ export default function PurchaseOrderAnalytics({
                 Procurement Spend Analysis (Monthly Value)
               </Typography>
               <Box sx={{ width: '100%', height: 260 }}>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                   <BarChart data={monthlyData} margin={{ top: 10, right: 10, left: -15, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                     <XAxis dataKey="month" stroke="#64748B" fontSize={11} tickLine={false} />
@@ -266,7 +266,7 @@ export default function PurchaseOrderAnalytics({
                 Top Suppliers by Expenditures
               </Typography>
               <Box sx={{ width: '100%', height: 260 }}>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                   <BarChart data={topSuppliersChartData} layout="vertical" margin={{ top: 10, right: 10, left: 10, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E2E8F0" />
                     <XAxis type="number" stroke="#64748B" fontSize={10} tickLine={false} />
@@ -288,7 +288,7 @@ export default function PurchaseOrderAnalytics({
                 Status Distribution
               </Typography>
               <Box sx={{ width: '100%', height: 260, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <ResponsiveContainer width="100%" height={170}>
+                <ResponsiveContainer width="100%" height={170} minWidth={0}>
                   <PieChart>
                     <Pie
                       data={statusData}

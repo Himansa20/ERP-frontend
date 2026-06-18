@@ -72,7 +72,7 @@ export default function ProductionOrderPage() {
 
   // Filter & Search states
   const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'ALL' | 'PENDING' | 'IN_PROGRESS' | 'COMPLETED'>('ALL');
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'Planned' | 'InProgress' | 'Completed' | 'Cancelled'>('ALL');
   const [filterAnchorEl, setFilterAnchorEl] = useState<null | HTMLElement>(null);
 
   // Dialog & Drawer toggle states
@@ -103,7 +103,8 @@ export default function ProductionOrderPage() {
     total: 0,
     completed: 0,
     inProgress: 0,
-    pending: 0,
+    planned: 0,
+    cancelled: 0,
     completionRate: 0,
   });
 
@@ -153,16 +154,18 @@ export default function ProductionOrderPage() {
       setAllOrders(res.content);
 
       const total = res.totalElements;
-      const completed = res.content.filter((o) => o.status?.toUpperCase() === 'COMPLETED').length;
-      const inProgress = res.content.filter((o) => o.status?.toUpperCase() === 'IN_PROGRESS' || o.status?.toUpperCase() === 'RUNNING').length;
-      const pending = res.content.filter((o) => o.status?.toUpperCase() === 'PENDING' || !o.status).length;
+      const completed = res.content.filter((o) => o.status === 'Completed').length;
+      const inProgress = res.content.filter((o) => o.status === 'InProgress').length;
+      const planned = res.content.filter((o) => o.status === 'Planned' || !o.status).length;
+      const cancelled = res.content.filter((o) => o.status === 'Cancelled').length;
       const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
 
       setKpi({
         total,
         completed,
         inProgress,
-        pending,
+        planned,
+        cancelled,
         completionRate: rate,
       });
     } catch (err) {
@@ -308,7 +311,7 @@ export default function ProductionOrderPage() {
       o.quantityProduced || 0,
       new Date(o.startDate || o.productionDate || '').toLocaleString(),
       new Date(o.endDate || '').toLocaleString(),
-      o.status || 'PENDING',
+      o.status || 'Planned',
       `"${(employeesMap[Number(o.employeeId)] || `Supervisor #${o.employeeId}`).replace(/"/g, '""')}"`,
       o.priority || 'LOW',
     ]);
@@ -342,10 +345,7 @@ export default function ProductionOrderPage() {
 
     if (statusFilter !== 'ALL') {
       list = list.filter((o) => {
-        const orderStatus = o.status?.toUpperCase() || 'PENDING';
-        if (statusFilter === 'IN_PROGRESS') {
-          return orderStatus === 'IN_PROGRESS' || orderStatus === 'RUNNING';
-        }
+        const orderStatus = o.status || 'Planned';
         return orderStatus === statusFilter;
       });
     }
@@ -360,7 +360,8 @@ export default function ProductionOrderPage() {
     return [
       { name: 'Completed', value: kpi.completed, fill: '#16A34A' },
       { name: 'In Progress', value: kpi.inProgress, fill: '#2563EB' },
-      { name: 'Pending', value: kpi.pending, fill: '#64748B' },
+      { name: 'Planned', value: kpi.planned, fill: '#64748B' },
+      { name: 'Cancelled', value: kpi.cancelled, fill: '#DC2626' },
     ].filter(item => item.value > 0);
   };
 
@@ -474,7 +475,7 @@ export default function ProductionOrderPage() {
                 Pending
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 800, color: '#64748B', mt: 0.5 }}>
-                {loading ? <CircularProgress size={16} /> : kpi.pending}
+                {loading ? <CircularProgress size={16} /> : kpi.planned}
               </Typography>
             </CardContent>
           </Card>
@@ -617,7 +618,7 @@ export default function ProductionOrderPage() {
                   '&:hover': { bgcolor: '#F8FAFC', borderColor: '#CBD5E1' },
                 }}
               >
-                Filter: {statusFilter === 'ALL' ? 'All' : statusFilter === 'COMPLETED' ? 'Completed' : statusFilter === 'IN_PROGRESS' ? 'In Progress' : 'Pending'}
+                Filter: {statusFilter === 'ALL' ? 'All' : statusFilter === 'Completed' ? 'Completed' : statusFilter === 'InProgress' ? 'In Progress' : statusFilter === 'Cancelled' ? 'Cancelled' : 'Planned'}
               </Button>
             </Tooltip>
 
@@ -693,30 +694,39 @@ export default function ProductionOrderPage() {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setStatusFilter('PENDING');
+            setStatusFilter('Planned');
             setFilterAnchorEl(null);
           }}
-          selected={statusFilter === 'PENDING'}
+          selected={statusFilter === 'Planned'}
         >
-          Pending
+          Planned
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setStatusFilter('IN_PROGRESS');
+            setStatusFilter('InProgress');
             setFilterAnchorEl(null);
           }}
-          selected={statusFilter === 'IN_PROGRESS'}
+          selected={statusFilter === 'InProgress'}
         >
           In Progress
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setStatusFilter('COMPLETED');
+            setStatusFilter('Completed');
             setFilterAnchorEl(null);
           }}
-          selected={statusFilter === 'COMPLETED'}
+          selected={statusFilter === 'Completed'}
         >
           Completed
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setStatusFilter('Cancelled');
+            setFilterAnchorEl(null);
+          }}
+          selected={statusFilter === 'Cancelled'}
+        >
+          Cancelled
         </MenuItem>
       </Menu>
 

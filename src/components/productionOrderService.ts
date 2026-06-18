@@ -7,7 +7,7 @@ export interface ProductionOrder {
   productionDate?: string;
   quantityToProduce: number;
   quantityProduced: number;
-  status: string; // PENDING, IN_PROGRESS, COMPLETED
+  status: string; // Planned, InProgress, Completed, Cancelled
   startDate?: string;
   endDate?: string;
   priority?: string; // HIGH, MEDIUM, LOW

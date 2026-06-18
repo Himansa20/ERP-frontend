@@ -234,7 +234,7 @@ export default function PurchaseOrderDetailsDrawer({
                         Expected Delivery Date
                       </Typography>
                       <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
-                        {formatDate(order.expectedDeliveryDate)}
+                        {formatDate(order.expectedDate)}
                       </Typography>
                     </Grid>
                     <Grid size={{ xs: 6 }}>
@@ -352,7 +352,7 @@ export default function PurchaseOrderDetailsDrawer({
                       return (
                         <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                           <TableCell sx={{ fontWeight: 500, color: '#0F172A' }}>
-                            {itemsMap[Number(item.itemId)] || `Item #${item.itemId}`}
+                            {itemsMap[Number(item.rawMaterialId)] || `Item #${item.rawMaterialId}`}
                             {item.description && (
                               <Typography variant="caption" sx={{ display: 'block', color: '#64748B' }}>
                                 {item.description}

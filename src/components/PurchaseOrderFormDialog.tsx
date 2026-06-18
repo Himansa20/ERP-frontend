@@ -67,7 +67,7 @@ export default function PurchaseOrderFormDialog({
   
   // Items table state
   const [items, setItems] = useState<PurchaseOrderItem[]>([
-    { itemId: 0, quantity: 1, unitPrice: 0, description: '' }
+    { rawMaterialId: 0, quantity: 1, unitPrice: 0, description: '' }
   ]);
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -78,18 +78,18 @@ export default function PurchaseOrderFormDialog({
       if (order) {
         setSupplierId(order.supplierId || '');
         setOrderDate(order.orderDate ? order.orderDate.substring(0, 16) : '');
-        setExpectedDeliveryDate(order.expectedDeliveryDate ? order.expectedDeliveryDate.substring(0, 16) : '');
+        setExpectedDeliveryDate(order.expectedDate ? order.expectedDate.substring(0, 16) : '');
         setNotes(order.notes || '');
         setItems(
           order.purchaseOrderItems && order.purchaseOrderItems.length > 0
             ? order.purchaseOrderItems.map(i => ({
                 purchaseOrderItemId: i.purchaseOrderItemId,
-                itemId: i.itemId,
+                rawMaterialId: i.rawMaterialId,
                 quantity: Number(i.quantity),
                 unitPrice: Number(i.unitPrice),
                 description: i.description || '',
               }))
-            : [{ itemId: 0, quantity: 1, unitPrice: 0, description: '' }]
+            : [{ rawMaterialId: 0, quantity: 1, unitPrice: 0, description: '' }]
         );
       } else {
         setSupplierId('');
@@ -101,7 +101,7 @@ export default function PurchaseOrderFormDialog({
         setExpectedDeliveryDate(exp.toISOString().substring(0, 16));
         
         setNotes('');
-        setItems([{ itemId: 0, quantity: 1, unitPrice: 0, description: '' }]);
+        setItems([{ rawMaterialId: 0, quantity: 1, unitPrice: 0, description: '' }]);
       }
       setErrors({});
     }
@@ -118,7 +118,7 @@ export default function PurchaseOrderFormDialog({
 
   // Items grid actions
   const handleAddItemLine = () => {
-    setItems([...items, { itemId: 0, quantity: 1, unitPrice: 0, description: '' }]);
+    setItems([...items, { rawMaterialId: 0, quantity: 1, unitPrice: 0, description: '' }]);
   };
 
   const handleRemoveItemLine = (index: number) => {
@@ -130,9 +130,9 @@ export default function PurchaseOrderFormDialog({
   const handleItemFieldChange = (index: number, field: keyof PurchaseOrderItem, value: any) => {
     const updated = [...items];
     
-    if (field === 'itemId') {
+    if (field === 'rawMaterialId') {
       const selectedId = Number(value);
-      updated[index].itemId = selectedId;
+      updated[index].rawMaterialId = selectedId;
       // Auto-populate description and price from itemsOptions list if available
       const itemOpt = itemsOptions.find(i => (i.itemId || i.id) === selectedId);
       if (itemOpt) {
@@ -168,7 +168,7 @@ export default function PurchaseOrderFormDialog({
 
     // Items validation
     const invalidItems = items.some(
-      i => !i.itemId || i.quantity <= 0 || i.unitPrice <= 0
+      i => !i.rawMaterialId || i.quantity <= 0 || i.unitPrice <= 0
     );
     
     if (items.length === 0) {
@@ -187,12 +187,12 @@ export default function PurchaseOrderFormDialog({
     const inputPayload: PurchaseOrderInput = {
       supplierId: Number(supplierId),
       orderDate: new Date(orderDate).toISOString(),
-      expectedDeliveryDate: new Date(expectedDeliveryDate).toISOString(),
+      expectedDate: new Date(expectedDeliveryDate).toISOString(),
       status: status,
       notes: notes,
       purchaseOrderItems: items.map(i => ({
         purchaseOrderItemId: i.purchaseOrderItemId,
-        itemId: Number(i.itemId),
+        rawMaterialId: Number(i.rawMaterialId),
         quantity: Number(i.quantity),
         unitPrice: Number(i.unitPrice),
         description: i.description,
@@ -381,8 +381,8 @@ export default function PurchaseOrderFormDialog({
                         <TableCell sx={{ py: 1.5 }}>
                           <FormControl fullWidth size="small">
                             <Select
-                              value={item.itemId || ''}
-                              onChange={(e) => handleItemFieldChange(index, 'itemId', e.target.value)}
+                              value={item.rawMaterialId || ''}
+                              onChange={(e) => handleItemFieldChange(index, 'rawMaterialId', e.target.value)}
                               disabled={saving}
                               displayEmpty
                             >

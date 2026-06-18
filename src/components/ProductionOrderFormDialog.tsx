@@ -56,7 +56,7 @@ export default function ProductionOrderFormDialog({
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [priority, setPriority] = useState('LOW');
-  const [status, setStatus] = useState('PENDING');
+  const [status, setStatus] = useState('Planned');
   const [errors, setErrors] = useState<FormErrors>({});
 
   // Reset/populate form
@@ -70,7 +70,7 @@ export default function ProductionOrderFormDialog({
         setStartDate(order.startDate ? order.startDate.substring(0, 16) : '');
         setEndDate(order.endDate ? order.endDate.substring(0, 16) : '');
         setPriority(order.priority || 'LOW');
-        setStatus(order.status || 'PENDING');
+        setStatus(order.status || 'Planned');
       } else {
         // Reset defaults
         setFinishedProductId('');
@@ -83,7 +83,7 @@ export default function ProductionOrderFormDialog({
         setStartDate(now.toISOString().substring(0, 16));
         setEndDate(tomorrow.toISOString().substring(0, 16));
         setPriority('LOW');
-        setStatus('PENDING');
+        setStatus('Planned');
       }
       setErrors({});
     }
@@ -313,9 +313,10 @@ export default function ProductionOrderFormDialog({
                   onChange={(e) => setStatus(e.target.value)}
                   disabled={saving}
                 >
-                  <MenuItem value="PENDING">Pending</MenuItem>
-                  <MenuItem value="IN_PROGRESS">In Progress</MenuItem>
-                  <MenuItem value="COMPLETED">Completed</MenuItem>
+                  <MenuItem value="Planned">Planned</MenuItem>
+                  <MenuItem value="InProgress">In Progress</MenuItem>
+                  <MenuItem value="Completed">Completed</MenuItem>
+                  <MenuItem value="Cancelled">Cancelled</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
