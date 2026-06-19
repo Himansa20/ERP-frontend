@@ -34,6 +34,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PaidIcon from '@mui/icons-material/Paid';
 
 import { purchaseOrderService, PurchaseOrder, PurchaseOrderInput, DropdownItem } from './purchaseOrderService';
+import { formatCurrency } from '../utils/currency';
 import PurchaseOrderTable from './PurchaseOrderTable';
 import PurchaseOrderFormDialog from './PurchaseOrderFormDialog';
 import PurchaseOrderDetailsDrawer from './PurchaseOrderDetailsDrawer';
@@ -420,7 +421,7 @@ export default function PurchaseOrderPage() {
                 Procurement Value
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', mt: 0.5, fontSize: '1.35rem' }}>
-                {loading ? <Skeleton width={90} /> : `$${kpi.totalSpend.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
+                {loading ? <Skeleton width={90} /> : formatCurrency(kpi.totalSpend, { maximumFractionDigits: 0 })}
               </Typography>
             </CardContent>
           </Card>

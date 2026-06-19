@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
 import { PurchaseOrder } from './purchaseOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface PurchaseOrderTableProps {
   orders: PurchaseOrder[];
@@ -141,7 +142,7 @@ export default function PurchaseOrderTable({
       headerAlign: 'right',
       renderCell: (params) => (
         <span style={{ fontWeight: 750, color: '#0F172A' }}>
-          ${Number(params.value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          {formatCurrency(Number(params.value || 0))}
         </span>
       ),
     },

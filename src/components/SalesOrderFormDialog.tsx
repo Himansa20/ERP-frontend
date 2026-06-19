@@ -29,6 +29,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { SalesOrder, SalesOrderInput, SalesOrderItem, DropdownItem } from './salesOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface SalesOrderFormDialogProps {
   open: boolean;
@@ -374,7 +375,7 @@ export default function SalesOrderFormDialog({
                   <TableRow>
                     <TableCell sx={{ fontWeight: 700, color: '#475569' }}>Product Name</TableCell>
                     <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 120 }}>Quantity</TableCell>
-                    <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 140 }}>Unit Price ($)</TableCell>
+                    <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 140 }}>Unit Price (Rs.)</TableCell>
                     <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 140 }}>Subtotal</TableCell>
                     <TableCell align="center" sx={{ width: 60 }}></TableCell>
                   </TableRow>
@@ -434,7 +435,7 @@ export default function SalesOrderFormDialog({
                         {/* Subtotal */}
                         <TableCell align="right">
                           <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
-                            ${prodSub.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            {formatCurrency(prodSub)}
                           </Typography>
                         </TableCell>
 
@@ -468,7 +469,7 @@ export default function SalesOrderFormDialog({
                 </Grid>
                 <Grid size={{ xs: 6 }} sx={{ textAlign: 'right' }}>
                   <Typography variant="body2" sx={{ color: '#0F172A', fontWeight: 600 }}>
-                    ${subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {formatCurrency(subtotal)}
                   </Typography>
                 </Grid>
 
@@ -477,7 +478,7 @@ export default function SalesOrderFormDialog({
                 </Grid>
                 <Grid size={{ xs: 6 }} sx={{ textAlign: 'right' }}>
                   <Typography variant="body2" sx={{ color: '#0F172A', fontWeight: 600 }}>
-                    ${tax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {formatCurrency(tax)}
                   </Typography>
                 </Grid>
 
@@ -490,7 +491,7 @@ export default function SalesOrderFormDialog({
                 </Grid>
                 <Grid size={{ xs: 6 }} sx={{ textAlign: 'right' }}>
                   <Typography variant="subtitle2" sx={{ color: '#2563EB', fontWeight: 800 }}>
-                    ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {formatCurrency(grandTotal)}
                   </Typography>
                 </Grid>
               </Grid>

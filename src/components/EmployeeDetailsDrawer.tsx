@@ -16,10 +16,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PaidIcon from '@mui/icons-material/Paid';
 import WorkIcon from '@mui/icons-material/Work';
 import BadgeIcon from '@mui/icons-material/Badge';
 import { Employee } from './employeeService';
+import { formatCurrency } from '../utils/currency';
 
 interface EmployeeDetailsDrawerProps {
   open: boolean;
@@ -245,8 +246,8 @@ export default function EmployeeDetailsDrawer({
                           gap: 0.5,
                         }}
                       >
-                        <AttachMoneyIcon sx={{ fontSize: 16, color: '#16A34A' }} />
-                        {employee.salary ? Number(employee.salary).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : '$0.00'}
+                        <PaidIcon sx={{ fontSize: 16, color: '#16A34A' }} />
+                        {employee.salary ? formatCurrency(Number(employee.salary)) : 'Rs. 0.00'}
                       </Typography>
                     </Grid>
 

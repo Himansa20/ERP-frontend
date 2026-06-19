@@ -13,6 +13,7 @@ import InventoryTransactionPage from './InventoryTransactionPage';
 import StockByWarehousePage from './StockByWarehousePage';
 import AuditLogPage from './AuditLogPage';
 import PurchaseOrderPage from './PurchaseOrderPage';
+import { formatCurrency } from '../utils/currency';
 import {
   createTheme,
   ThemeProvider,
@@ -429,13 +430,13 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
       // Get the latest month value or compute the total
       const latestMonth = monthlySales.data[monthlySales.data.length - 1];
       return {
-        value: `$${latestMonth.totalSalesAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+        value: formatCurrency(latestMonth.totalSalesAmount),
         trend: '+12.4% MoM',
         isPositive: true,
         monthName: latestMonth.month,
       };
     }
-    return { value: '$0.00', trend: '--', isPositive: true, monthName: 'N/A' };
+    return { value: formatCurrency(0), trend: '--', isPositive: true, monthName: 'N/A' };
   };
 
   const getProductionKpi = () => {
@@ -1024,15 +1025,15 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                                   tick={{ fill: '#475569', fontSize: 12, fontWeight: 500 }}
                                   axisLine={false}
                                   tickLine={false}
-                                  tickFormatter={(value) => `$${value >= 1000 ? (value / 1000).toFixed(0) + 'k' : value}`}
+                                  tickFormatter={(value) => `Rs. ${value >= 1000 ? (value / 1000).toFixed(0) + 'k' : value}`}
                                 />
                                 <ChartTooltip
-                                  formatter={(value: number) => [`$${value.toLocaleString()}`, 'Sales Amount']}
+                                  formatter={(value: number) => [formatCurrency(value), 'Sales Amount']}
                                   contentStyle={{ borderRadius: 8, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
                                 />
                                 <Legend wrapperStyle={{ paddingTop: 10 }} />
                                 <Line
-                                  name="Sales Value ($)"
+                                  name="Sales Value (Rs.)"
                                   type="monotone"
                                   dataKey="totalSalesAmount"
                                   stroke="#2563EB"
@@ -1245,7 +1246,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                                       ))}
                                     </Pie>
                                     <ChartTooltip
-                                      formatter={(value: number) => [`$${value.toLocaleString()}`, 'Purchase Value']}
+                                      formatter={(value: number) => [formatCurrency(value), 'Purchase Value']}
                                       contentStyle={{ borderRadius: 8, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
                                     />
                                   </PieChart>
@@ -1262,7 +1263,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                                           {item.supplierName}
                                         </Typography>
                                         <Typography variant="caption" sx={{ color: '#64748B' }}>
-                                          ${item.totalPurchaseAmount.toLocaleString()}
+                                          {formatCurrency(item.totalPurchaseAmount)}
                                         </Typography>
                                       </Box>
                                     </Box>
@@ -1500,7 +1501,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                             <Typography variant="body2" sx={{ color: '#475569', lineHeight: 1.6, fontSize: '0.875rem' }}>
                               Aggregated billing records show a total of{' '}
                               <strong>
-                                ${monthlySales.data.reduce((acc, curr) => acc + curr.totalSalesAmount, 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                {formatCurrency(monthlySales.data.reduce((acc, curr) => acc + curr.totalSalesAmount, 0))}
                               </strong>{' '}
                               in gross transactions. Revenue peaked during{' '}
                               <strong>
@@ -1511,7 +1512,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                               </strong>{' '}
                               with{' '}
                               <strong>
-                                ${Math.max(...monthlySales.data.map((s) => s.totalSalesAmount)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                {formatCurrency(Math.max(...monthlySales.data.map((s) => s.totalSalesAmount)))}
                               </strong>{' '}
                               recorded.
                             </Typography>
@@ -1589,7 +1590,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                             <Typography variant="body2" sx={{ color: '#475569', lineHeight: 1.6, fontSize: '0.875rem' }}>
                               Total supply expenditures stand at{' '}
                               <strong>
-                                ${supplierPurchase.data.reduce((acc, curr) => acc + curr.totalPurchaseAmount, 0).toLocaleString()}
+                                {formatCurrency(supplierPurchase.data.reduce((acc, curr) => acc + curr.totalPurchaseAmount, 0))}
                               </strong>
                               . The primary logistics partner is{' '}
                               <strong>
@@ -1600,7 +1601,7 @@ export default function Dashboard({ onLogout }: { onLogout: () => void }) {
                               </strong>
                               , representing{' '}
                               <strong>
-                                ${Math.max(...supplierPurchase.data.map((s) => s.totalPurchaseAmount)).toLocaleString()}
+                                {formatCurrency(Math.max(...supplierPurchase.data.map((s) => s.totalPurchaseAmount)))}
                               </strong>{' '}
                               in accounts payable.
                             </Typography>

@@ -24,11 +24,12 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import FactoryIcon from '@mui/icons-material/Factory';
 import BuildIcon from '@mui/icons-material/Build';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PaidIcon from '@mui/icons-material/Paid';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 import { bomService, BOM } from './bomService';
+import { formatCurrency } from '../utils/currency';
 import { ParsedItem } from './itemService';
 
 interface BomProductLookupProps {
@@ -198,10 +199,10 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
                               {c.wastagePercentage > 0 ? `+${c.wastagePercentage}%` : '0%'}
                             </TableCell>
                             <TableCell align="right" sx={{ color: '#475569', fontWeight: 500 }}>
-                              ${cost.toFixed(2)}
+                              {formatCurrency(cost)}
                             </TableCell>
                             <TableCell align="right" sx={{ fontWeight: 700, color: '#0F172A' }}>
-                              ${lineCost.toFixed(2)}
+                              {formatCurrency(lineCost)}
                             </TableCell>
                           </TableRow>
                         );
@@ -247,7 +248,7 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', bgcolor: '#FFFFFF' }}>
                 <CardContent sx={{ p: 2.5 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                    <AttachMoneyIcon sx={{ color: '#16A34A' }} />
+                    <PaidIcon sx={{ color: '#16A34A' }} />
                     <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A' }}>
                       Material Cost Rollup
                     </Typography>
@@ -256,20 +257,20 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: '#64748B' }}>Base Materials</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
-                        ${baseCost.toFixed(2)}
+                        {formatCurrency(baseCost)}
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: '#64748B' }}>Est. Wastage</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 600, color: '#D97706' }}>
-                        ${wastageCost.toFixed(2)}
+                        {formatCurrency(wastageCost)}
                       </Typography>
                     </Box>
                     <Divider />
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#475569' }}>Total BOM Cost</Typography>
                       <Typography variant="h6" sx={{ fontWeight: 850, color: '#16A34A' }}>
-                        ${totalCost.toFixed(2)}
+                        {formatCurrency(totalCost)}
                       </Typography>
                     </Box>
                   </Stack>

@@ -347,7 +347,7 @@ export default function ItemFormDialog({
                   required
                   fullWidth
                   type="number"
-                  label="Standard Cost ($)"
+                  label="Standard Cost (Rs.)"
                   value={standardCost}
                   onChange={(e) => setStandardCost(e.target.value === '' ? '' : Number(e.target.value))}
                   error={!!errors.standardCost}

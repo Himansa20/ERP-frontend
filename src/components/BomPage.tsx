@@ -43,6 +43,7 @@ import {
 } from 'recharts';
 
 import { bomService, BOM, BOMComponent } from './bomService';
+import { formatCurrency } from '../utils/currency';
 import { itemService, ParsedItem } from './itemService';
 import BomTable from './BomTable';
 import BomFormDialog from './BomFormDialog';
@@ -527,7 +528,7 @@ export default function BomPage() {
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', height: '100%' }}>
                 <CardContent>
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A', mb: 2 }}>
-                    Rolled Costs per BOM ($)
+                    Rolled Costs per BOM (Rs.)
                   </Typography>
                   {costChartData.length > 0 ? (
                     <ResponsiveContainer width="100%" height={200} minWidth={0}>
@@ -535,7 +536,7 @@ export default function BomPage() {
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                         <XAxis dataKey="name" stroke="#64748B" fontSize={9} tickLine={false} />
                         <YAxis stroke="#64748B" fontSize={9} tickLine={false} />
-                        <ChartTooltip formatter={(value) => [`$${value.toLocaleString()}`, 'Rolled BOM Cost']} />
+                        <ChartTooltip formatter={(value) => [formatCurrency(Number(value)), 'Rolled BOM Cost']} />
                         <Bar dataKey="totalCost" fill="#16A34A" radius={[4, 4, 0, 0]} name="Rolled Cost" />
                       </BarChart>
                     </ResponsiveContainer>

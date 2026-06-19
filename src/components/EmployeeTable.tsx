@@ -7,6 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
 import { Employee } from './employeeService';
 
+import { formatCurrency } from '../utils/currency';
+
 interface EmployeeTableProps {
   employees: Employee[];
   loading: boolean;
@@ -145,7 +147,7 @@ export default function EmployeeTable({
         const salaryNum = params.value ? Number(params.value) : 0;
         return (
           <span style={{ fontWeight: 600, color: '#0F172A' }}>
-            {salaryNum.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            {formatCurrency(salaryNum)}
           </span>
         );
       },

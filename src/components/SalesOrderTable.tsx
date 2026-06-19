@@ -8,6 +8,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import InfoIcon from '@mui/icons-material/Info';
 import { SalesOrder } from './salesOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface SalesOrderTableProps {
   orders: SalesOrder[];
@@ -206,7 +207,7 @@ export default function SalesOrderTable({
       headerAlign: 'right',
       renderCell: (params) => (
         <span style={{ fontWeight: 750, color: '#0F172A' }}>
-          ${Number(params.value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          {formatCurrency(Number(params.value || 0))}
         </span>
       ),
     },

@@ -31,6 +31,7 @@ import FactoryIcon from '@mui/icons-material/Factory';
 import BuildIcon from '@mui/icons-material/Build';
 import { BOM, BOMComponent } from './bomService';
 import { ParsedItem } from './itemService';
+import { formatCurrency } from '../utils/currency';
 
 interface BomFormDialogProps {
   open: boolean;
@@ -394,7 +395,7 @@ export default function BomFormDialog({
                     {/* Unit Cost */}
                     <TableCell align="right">
                       <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
-                        ${Number(comp.standardCost || 0).toFixed(2)}
+                        {formatCurrency(Number(comp.standardCost || 0))}
                       </Typography>
                     </TableCell>
 
@@ -450,7 +451,7 @@ export default function BomFormDialog({
               ROLLED-UP MATERIAL COST
             </Typography>
             <Typography variant="h5" sx={{ fontWeight: 850, color: '#16A34A' }}>
-              ${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              {formatCurrency(totalCost)}
             </Typography>
           </Box>
         </Box>

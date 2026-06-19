@@ -285,7 +285,7 @@ export default function EmployeeFormDialog({
               required
               fullWidth
               type="number"
-              label="Salary (USD)"
+              label="Salary (Rs.)"
               placeholder="e.g. 5000"
               value={salary}
               onChange={(e) => setSalary(e.target.value)}

@@ -27,6 +27,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaidIcon from '@mui/icons-material/Paid';
 import { SalesOrder, DropdownItem } from './salesOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface SalesOrderDetailsDrawerProps {
   open: boolean;
@@ -269,9 +270,9 @@ export default function SalesOrderDetailsDrawer({
                             {productsMap[Number(item.finishedProductId)] || `Product #${item.finishedProductId}`}
                           </TableCell>
                           <TableCell align="right">{qty}</TableCell>
-                          <TableCell align="right">${price.toFixed(2)}</TableCell>
+                          <TableCell align="right">{formatCurrency(price)}</TableCell>
                           <TableCell align="right" sx={{ fontWeight: 600 }}>
-                            ${(qty * price).toFixed(2)}
+                            {formatCurrency(qty * price)}
                           </TableCell>
                         </TableRow>
                       );
@@ -305,19 +306,19 @@ export default function SalesOrderDetailsDrawer({
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: '#64748B' }}>Total Invoice Amount</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 750, color: '#0F172A' }}>
-                        ${total.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(total)}
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: '#16A34A' }}>Total Payments Collected</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 750, color: '#16A34A' }}>
-                        ${paid.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(paid)}
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: balance > 0 ? '#DC2626' : '#64748B' }}>Open Balance Due</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 750, color: balance > 0 ? '#DC2626' : '#475569' }}>
-                        ${balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(balance)}
                       </Typography>
                     </Box>
                   </Stack>

@@ -23,6 +23,7 @@ import PrintIcon from '@mui/icons-material/Print';
 import DownloadIcon from '@mui/icons-material/Download';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import { salesOrderService, SalesOrder, SalesInvoice, DropdownItem } from './salesOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface InvoiceViewerDialogProps {
   open: boolean;
@@ -234,9 +235,9 @@ export default function InvoiceViewerDialog({
                           {productsMap[Number(item.finishedProductId)] || `Finished Product #${item.finishedProductId}`}
                         </TableCell>
                         <TableCell align="right">{qty.toLocaleString()}</TableCell>
-                        <TableCell align="right">${price.toLocaleString(undefined, { minimumFractionDigits: 2 })}</TableCell>
-                        <TableCell align="right" sx={{ fontWeight: 700, color: '#0F172A' }}>
-                          ${(qty * price).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        <TableCell align="right">{formatCurrency(price)}</TableCell>
+                        <TableCell align="right" sx={{ fontWeight: 750, color: '#0F172A' }}>
+                          {formatCurrency(qty * price)}
                         </TableCell>
                       </TableRow>
                     );
@@ -252,20 +253,20 @@ export default function InvoiceViewerDialog({
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="body2" sx={{ color: '#64748B' }}>Invoice Total</Typography>
                     <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
-                      ${Number(invoice.totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      {formatCurrency(Number(invoice.totalAmount))}
                     </Typography>
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="body2" sx={{ color: '#16A34A' }}>Amount Collected</Typography>
                     <Typography variant="body2" sx={{ fontWeight: 700, color: '#16A34A' }}>
-                      -${Number(invoice.paidAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      -{formatCurrency(Number(invoice.paidAmount))}
                     </Typography>
                   </Box>
                   <Divider />
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#0F172A' }}>Balance Due</Typography>
                     <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#DC2626' }}>
-                      ${Number(invoice.balanceAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      {formatCurrency(Number(invoice.balanceAmount))}
                     </Typography>
                   </Box>
                 </Stack>

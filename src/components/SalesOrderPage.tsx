@@ -30,10 +30,11 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PaidIcon from '@mui/icons-material/Paid';
 import PeopleIcon from '@mui/icons-material/People';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import { formatCurrency } from '../utils/currency';
 
 // Recharts components
 import {
@@ -511,14 +512,14 @@ export default function SalesOrderPage() {
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
                 <Box sx={{ bgcolor: '#EFF6FF', p: 1, borderRadius: 2, color: '#2563EB', display: 'flex' }}>
-                  <AttachMoneyIcon sx={{ fontSize: 20 }} />
+                  <PaidIcon sx={{ fontSize: 20 }} />
                 </Box>
               </Box>
               <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Total Revenue
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', mt: 0.5 }}>
-                {loading ? <CircularProgress size={16} /> : `$${kpi.totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
+                {loading ? <CircularProgress size={16} /> : formatCurrency(kpi.totalRevenue, { maximumFractionDigits: 0 })}
               </Typography>
             </CardContent>
           </Card>
@@ -537,7 +538,7 @@ export default function SalesOrderPage() {
                 Average Order Value
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', mt: 0.5 }}>
-                {loading ? <CircularProgress size={16} /> : `$${kpi.avgOrderValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
+                {loading ? <CircularProgress size={16} /> : formatCurrency(kpi.avgOrderValue, { maximumFractionDigits: 0 })}
               </Typography>
             </CardContent>
           </Card>
@@ -598,7 +599,7 @@ export default function SalesOrderPage() {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                     <XAxis dataKey="name" stroke="#64748B" fontSize={9} tickLine={false} />
                     <YAxis stroke="#64748B" fontSize={10} tickLine={false} />
-                    <ChartTooltip formatter={(value) => [`$${Number(value).toLocaleString()}`, 'Revenue']} />
+                    <ChartTooltip formatter={(value) => [formatCurrency(Number(value)), 'Revenue']} />
                     <Bar dataKey="revenue" fill="#2563EB" radius={[4, 4, 0, 0]} name="Revenue" />
                   </BarChart>
                 </ResponsiveContainer>
@@ -635,7 +636,7 @@ export default function SalesOrderPage() {
                           <TableCell sx={{ fontWeight: 600, py: 1 }}>{row.name}</TableCell>
                           <TableCell align="right" sx={{ py: 1 }}>{row.count}</TableCell>
                           <TableCell align="right" sx={{ fontWeight: 700, color: '#16A34A', py: 1 }}>
-                            ${row.revenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                            {formatCurrency(row.revenue, { maximumFractionDigits: 0 })}
                           </TableCell>
                         </TableRow>
                       ))}

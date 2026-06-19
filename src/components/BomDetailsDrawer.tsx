@@ -20,10 +20,11 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import FactoryIcon from '@mui/icons-material/Factory';
 import BuildIcon from '@mui/icons-material/Build';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PaidIcon from '@mui/icons-material/Paid';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { BOM } from './bomService';
+import { formatCurrency } from '../utils/currency';
 
 interface BomDetailsDrawerProps {
   open: boolean;
@@ -157,7 +158,7 @@ export default function BomDetailsDrawer({
                   gap: 1,
                 }}
               >
-                <AttachMoneyIcon sx={{ fontSize: 18, color: '#64748B' }} />
+                <PaidIcon sx={{ fontSize: 18, color: '#64748B' }} />
                 Manufacturing Cost Summary
               </Typography>
               <Card sx={{ bgcolor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 2, boxShadow: 'none' }}>
@@ -168,7 +169,7 @@ export default function BomDetailsDrawer({
                         Base Material Cost
                       </Typography>
                       <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#0F172A' }}>
-                        ${baseCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        {formatCurrency(baseCost)}
                       </Typography>
                     </Grid>
                     
@@ -177,17 +178,17 @@ export default function BomDetailsDrawer({
                         Est. Wastage Cost
                       </Typography>
                       <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#D97706', display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                        ${wastageCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        {formatCurrency(wastageCost)}
                       </Typography>
                     </Grid>
-
+ 
                     <Grid item xs={12}>
                       <Box sx={{ borderTop: '1px dashed #E2E8F0', pt: 2, mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#475569' }}>
                           Total Rolled Standard Cost:
                         </Typography>
                         <Typography variant="h6" sx={{ fontWeight: 850, color: '#16A34A' }}>
-                          ${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          {formatCurrency(totalCost)}
                         </Typography>
                       </Box>
                     </Grid>
@@ -250,7 +251,7 @@ export default function BomDetailsDrawer({
                               {c.wastagePercentage > 0 ? `+${c.wastagePercentage}%` : '0%'}
                             </TableCell>
                             <TableCell align="right" sx={{ fontWeight: 700, color: '#0F172A', fontSize: '0.825rem' }}>
-                              ${lineTotal.toFixed(2)}
+                              {formatCurrency(lineTotal)}
                             </TableCell>
                           </TableRow>
                         );

@@ -34,6 +34,7 @@ import {
 } from 'recharts';
 
 import { PurchaseOrder, DropdownItem } from './purchaseOrderService';
+import { formatCurrency as centralFormatCurrency } from '../utils/currency';
 
 interface PurchaseOrderAnalyticsProps {
   orders: PurchaseOrder[];
@@ -66,7 +67,7 @@ export default function PurchaseOrderAnalytics({
 
   // Helper to format currency
   const formatCurrency = (val: number) => {
-    return `$${val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    return centralFormatCurrency(val, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
   };
 
   // Helper to format date

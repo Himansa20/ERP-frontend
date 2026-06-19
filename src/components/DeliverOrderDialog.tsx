@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { SalesOrder, DropdownItem } from './salesOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface DeliverOrderDialogProps {
   open: boolean;
@@ -121,7 +122,7 @@ export default function DeliverOrderDialog({
               Total Invoice Amount
             </Typography>
             <Typography variant="body2" sx={{ fontWeight: 750, color: '#2563EB' }}>
-              ${Number(order.totalAmount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              {formatCurrency(Number(order.totalAmount || 0))}
             </Typography>
           </Grid>
 

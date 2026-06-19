@@ -27,6 +27,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaidIcon from '@mui/icons-material/Paid';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { PurchaseOrder, DropdownItem } from './purchaseOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface PurchaseOrderDetailsDrawerProps {
   open: boolean;
@@ -185,7 +186,7 @@ export default function PurchaseOrderDetailsDrawer({
                       TOTAL VALUE
                     </Typography>
                     <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#2563EB' }}>
-                      ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      {formatCurrency(grandTotal)}
                     </Typography>
                   </Box>
                 </Box>
@@ -360,9 +361,9 @@ export default function PurchaseOrderDetailsDrawer({
                             )}
                           </TableCell>
                           <TableCell align="right">{qty}</TableCell>
-                          <TableCell align="right">${price.toFixed(2)}</TableCell>
+                          <TableCell align="right">{formatCurrency(price)}</TableCell>
                           <TableCell align="right" sx={{ fontWeight: 600 }}>
-                            ${total.toFixed(2)}
+                            {formatCurrency(total)}
                           </TableCell>
                         </TableRow>
                       );
@@ -396,19 +397,19 @@ export default function PurchaseOrderDetailsDrawer({
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: '#64748B' }}>Subtotal</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
-                        ${subtotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(subtotal)}
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: '#64748B' }}>Tax (10%)</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
-                        ${tax.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(tax)}
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="body2" sx={{ color: '#0F172A', fontWeight: 600 }}>Grand Total</Typography>
                       <Typography variant="body2" sx={{ fontWeight: 800, color: '#2563EB' }}>
-                        ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(grandTotal)}
                       </Typography>
                     </Box>
                   </Stack>

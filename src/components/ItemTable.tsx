@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/Info';
 import { ParsedItem } from './itemService';
+import { formatCurrency } from '../utils/currency';
 
 interface ItemTableProps {
   items: ParsedItem[];
@@ -165,7 +166,7 @@ export default function ItemTable({
       headerAlign: 'right',
       renderCell: (params) => (
         <span style={{ fontWeight: 700, color: '#0F172A' }}>
-          ${Number(params.value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          {formatCurrency(Number(params.value || 0))}
         </span>
       ),
     },

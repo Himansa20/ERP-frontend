@@ -24,7 +24,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import BadgeIcon from '@mui/icons-material/Badge';
 import PeopleIcon from '@mui/icons-material/People';
 import EngineeringIcon from '@mui/icons-material/Engineering';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PaidIcon from '@mui/icons-material/Paid';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 
 // Recharts components
@@ -46,6 +46,7 @@ import { employeeService, Employee, EmployeeInput } from './employeeService';
 import EmployeeTable from './EmployeeTable';
 import EmployeeFormDialog from './EmployeeFormDialog';
 import EmployeeDetailsDrawer from './EmployeeDetailsDrawer';
+import { formatCurrency } from '../utils/currency';
 import EmployeeDeleteDialog from './EmployeeDeleteDialog';
 
 export default function EmployeePage() {
@@ -398,14 +399,14 @@ export default function EmployeePage() {
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
                 <Box sx={{ bgcolor: '#ECFDF5', p: 1, borderRadius: 2, color: '#16A34A', display: 'flex' }}>
-                  <AttachMoneyIcon sx={{ fontSize: 20 }} />
+                  <PaidIcon sx={{ fontSize: 20 }} />
                 </Box>
               </Box>
               <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Monthly Payroll
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', mt: 0.5 }}>
-                {loading ? <CircularProgress size={16} /> : `$${kpi.totalSalary.toLocaleString()}`}
+                {loading ? <CircularProgress size={16} /> : formatCurrency(kpi.totalSalary, { maximumFractionDigits: 0 })}
               </Typography>
             </CardContent>
           </Card>
@@ -424,7 +425,7 @@ export default function EmployeePage() {
                 Average Salary
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', mt: 0.5 }}>
-                {loading ? <CircularProgress size={16} /> : `$${Math.round(kpi.avgSalary).toLocaleString()}`}
+                {loading ? <CircularProgress size={16} /> : formatCurrency(Math.round(kpi.avgSalary), { maximumFractionDigits: 0 })}
               </Typography>
             </CardContent>
           </Card>
@@ -477,7 +478,7 @@ export default function EmployeePage() {
           <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', height: '100%' }}>
             <CardContent>
               <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A', mb: 2 }}>
-                Average Salary by Role ($)
+                Average Salary by Role (Rs.)
               </Typography>
               {allEmployees.length > 0 ? (
                 <ResponsiveContainer width="100%" height={230} minWidth={0}>
@@ -485,7 +486,7 @@ export default function EmployeePage() {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                     <XAxis dataKey="name" stroke="#64748B" fontSize={10} tickLine={false} />
                     <YAxis stroke="#64748B" fontSize={10} tickLine={false} />
-                    <ChartTooltip formatter={(value) => [`$${value.toLocaleString()}`, 'Average Salary']} />
+                    <ChartTooltip formatter={(value) => [formatCurrency(Number(value)), 'Average Salary']} />
                     <Bar dataKey="avgSalary" fill="#2563EB" radius={[4, 4, 0, 0]} name="Avg Salary" />
                   </BarChart>
                 </ResponsiveContainer>

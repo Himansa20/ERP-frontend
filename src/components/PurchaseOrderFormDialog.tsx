@@ -30,6 +30,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { PurchaseOrder, PurchaseOrderInput, PurchaseOrderItem, DropdownItem } from './purchaseOrderService';
+import { formatCurrency } from '../utils/currency';
 
 interface PurchaseOrderFormDialogProps {
   open: boolean;
@@ -367,7 +368,7 @@ export default function PurchaseOrderFormDialog({
                     <TableCell sx={{ fontWeight: 700, color: '#475569' }}>Item Name</TableCell>
                     <TableCell sx={{ fontWeight: 700, color: '#475569', width: 220 }}>Description</TableCell>
                     <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 100 }}>Quantity</TableCell>
-                    <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 120 }}>Unit Price ($)</TableCell>
+                    <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 120 }}>Unit Price (Rs.)</TableCell>
                     <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', width: 120 }}>Line Total</TableCell>
                     <TableCell align="center" sx={{ width: 60 }}></TableCell>
                   </TableRow>
@@ -439,7 +440,7 @@ export default function PurchaseOrderFormDialog({
                         {/* Line Total */}
                         <TableCell align="right">
                           <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
-                            ${lineTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            {formatCurrency(lineTotal)}
                           </Typography>
                         </TableCell>
 
@@ -473,7 +474,7 @@ export default function PurchaseOrderFormDialog({
                 </Grid>
                 <Grid size={{ xs: 6 }} sx={{ textAlign: 'right' }}>
                   <Typography variant="body2" sx={{ color: '#0F172A', fontWeight: 600 }}>
-                    ${subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {formatCurrency(subtotal)}
                   </Typography>
                 </Grid>
 
@@ -482,7 +483,7 @@ export default function PurchaseOrderFormDialog({
                 </Grid>
                 <Grid size={{ xs: 6 }} sx={{ textAlign: 'right' }}>
                   <Typography variant="body2" sx={{ color: '#0F172A', fontWeight: 600 }}>
-                    ${tax.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {formatCurrency(tax)}
                   </Typography>
                 </Grid>
 
@@ -495,7 +496,7 @@ export default function PurchaseOrderFormDialog({
                 </Grid>
                 <Grid size={{ xs: 6 }} sx={{ textAlign: 'right' }}>
                   <Typography variant="subtitle2" sx={{ color: '#2563EB', fontWeight: 800 }}>
-                    ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    {formatCurrency(grandTotal)}
                   </Typography>
                 </Grid>
               </Grid>

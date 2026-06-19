@@ -20,6 +20,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import InfoIcon from '@mui/icons-material/Info';
 import WarningIcon from '@mui/icons-material/Warning';
 import { ParsedItem } from './itemService';
+import { formatCurrency } from '../utils/currency';
 
 interface ItemDetailsDrawerProps {
   open: boolean;
@@ -277,7 +278,7 @@ export default function ItemDetailsDrawer({ open, onClose, item }: ItemDetailsDr
                         Standard Unit Cost
                       </Typography>
                       <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
-                        ${item.standardCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(item.standardCost)}
                       </Typography>
                     </Grid>
 
@@ -286,7 +287,7 @@ export default function ItemDetailsDrawer({ open, onClose, item }: ItemDetailsDr
                         Estimated Inventory Value
                       </Typography>
                       <Typography variant="body2" sx={{ fontWeight: 800, color: '#16A34A' }}>
-                        ${totalAssetValue.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {formatCurrency(totalAssetValue)}
                       </Typography>
                     </Grid>
                   </Grid>
