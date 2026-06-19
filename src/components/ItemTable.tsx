@@ -93,13 +93,12 @@ export default function ItemTable({
   const formatDate = (dateStr?: string) => {
     if (!dateStr) return 'N/A';
     try {
-      return new Date(dateStr).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      });
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return 'N/A';
+      const pad = (num: number) => num.toString().padStart(2, '0');
+      return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
     } catch {
-      return dateStr;
+      return 'N/A';
     }
   };
 
@@ -202,7 +201,7 @@ export default function ItemTable({
     {
       field: 'createdDate',
       headerName: 'Created Date',
-      width: 110,
+      width: 150,
       renderCell: (params) => <span>{formatDate(params.value)}</span>,
     },
     {

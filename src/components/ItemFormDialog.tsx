@@ -79,8 +79,18 @@ export default function ItemFormDialog({
         setStandardCost(item.standardCost ?? 0);
         setStatus(item.itemStatus || 'Active');
       } else {
-        // Pre-fill a mock item code based on count to assist the user
-        const nextNum = allItems.length + 1;
+        // Find the maximum numeric suffix from existing item codes
+        let maxNum = 0;
+        allItems.forEach((i) => {
+          const match = i.itemCode.match(/\d+/);
+          if (match) {
+            const num = parseInt(match[0], 10);
+            if (num > maxNum) {
+              maxNum = num;
+            }
+          }
+        });
+        const nextNum = maxNum + 1;
         setItemCode(`ITM-${nextNum.toString().padStart(4, '0')}`);
         setItemName('');
         setDescription('');

@@ -240,7 +240,7 @@ export default function ItemPage() {
       i.currentStock,
       i.reorderLevel,
       i.itemStatus,
-      new Date(i.createdDate || '').toLocaleDateString(),
+      i.createdDate ? new Date(i.createdDate).toLocaleDateString() : 'N/A',
     ]);
 
     const csvContent = 'data:text/csv;charset=utf-8,\uFEFF'
