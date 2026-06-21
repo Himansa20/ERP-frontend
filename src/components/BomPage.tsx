@@ -406,7 +406,7 @@ export default function BomPage() {
           {/* KPI Cards */}
           <Grid container spacing={2.5} sx={{ mb: 4 }}>
             {/* KPI 1: Total BOMs */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
                 <CardContent sx={{ p: 2 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -425,7 +425,7 @@ export default function BomPage() {
             </Grid>
 
             {/* KPI 2: Active Finished Products */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
                 <CardContent sx={{ p: 2 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -444,7 +444,7 @@ export default function BomPage() {
             </Grid>
 
             {/* KPI 3: Total Components */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
                 <CardContent sx={{ p: 2 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -463,7 +463,7 @@ export default function BomPage() {
             </Grid>
 
             {/* KPI 4: Avg Components per BOM */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none' }}>
                 <CardContent sx={{ p: 2 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
@@ -485,7 +485,7 @@ export default function BomPage() {
           {/* Analytics Charts */}
           <Grid container spacing={3} sx={{ mb: 4 }}>
             {/* Complexity (Pie Chart) */}
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', height: '100%' }}>
                 <CardContent>
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A', mb: 2 }}>
@@ -524,7 +524,7 @@ export default function BomPage() {
             </Grid>
 
             {/* Material Cost Breakdown (Bar Chart) */}
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', height: '100%' }}>
                 <CardContent>
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A', mb: 2 }}>
@@ -550,7 +550,7 @@ export default function BomPage() {
             </Grid>
 
             {/* Component Usage Analysis (Bar Chart) */}
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', height: '100%' }}>
                 <CardContent>
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A', mb: 2 }}>

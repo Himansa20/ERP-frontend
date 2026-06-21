@@ -87,7 +87,7 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
             Search Recipe / Formula
           </Typography>
           <Grid container spacing={3} alignItems="center">
-            <Grid item xs={12} sm={8}>
+            <Grid size={{ xs: 12, sm: 8 }}>
               <FormControl fullWidth>
                 <InputLabel id="lookup-product-select-label">Select Finished Product</InputLabel>
                 <Select
@@ -104,7 +104,7 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <Typography variant="body2" sx={{ color: '#64748B' }}>
                 Quickly lookup raw material usage and cost rolls for any manufactured asset in the BlueWhale catalog.
               </Typography>
@@ -143,7 +143,7 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
       ) : bom ? (
         <Grid container spacing={3}>
           {/* Main List */}
-          <Grid item xs={12} md={8}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', bgcolor: '#FFFFFF' }}>
               <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
@@ -215,7 +215,7 @@ export default function BomProductLookup({ allItems }: BomProductLookupProps) {
           </Grid>
 
           {/* Cost rolls side info */}
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Stack spacing={3}>
               {/* Product Info Card */}
               <Card sx={{ border: '1px solid #E2E8F0', boxShadow: 'none', bgcolor: '#FFFFFF' }}>

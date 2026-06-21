@@ -228,7 +228,7 @@ export default function BomFormDialog({
         </Typography>
 
         <Grid container spacing={3} sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={8}>
+          <Grid size={{ xs: 12, sm: 8 }}>
             <FormControl fullWidth required error={!!errors.finishedProductId}>
               <InputLabel id="finished-product-select-label">Finished Product</InputLabel>
               <Select
@@ -252,7 +252,7 @@ export default function BomFormDialog({
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} sm={4}>
+          <Grid size={{ xs: 12, sm: 4 }}>
             <TextField
               fullWidth
               label="Standard UOM"

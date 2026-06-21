@@ -103,11 +103,11 @@ export default function LoginPage({ onLoginSuccess }) {
           
           {/* Top Logo and Header */}
           <div className="relative z-10 flex items-center gap-3">
-            <div className="bg-white/10 p-2 rounded-xl backdrop-blur-md flex items-center justify-center h-10 w-10 border border-white/20">
-              <Factory className="h-6 w-6 text-blue-300" />
+            <div className="bg-white p-1.5 rounded-xl flex items-center justify-center h-10 w-10 border border-white/20 overflow-hidden">
+              <img src={logoImg} alt="BlueWhale Logo" className="h-full w-full object-contain" />
             </div>
             <div>
-              <span className="font-extrabold text-lg tracking-wider uppercase text-white">Company</span>
+              <span className="font-extrabold text-lg tracking-wider uppercase text-white">BlueWhale</span>
               <span className="text-blue-300 text-xs block -mt-1 font-semibold">Manufacturing</span>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function LoginPage({ onLoginSuccess }) {
                 Enterprise Resource Planning
               </span>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mt-4">
-                Company Manufacturing ERP
+                BlueWhale Manufacturing ERP
               </h1>
               <p className="mt-2 text-blue-200/90 text-sm font-medium">
                 Integrated Manufacturing Resource Planning Platform
@@ -269,10 +269,10 @@ export default function LoginPage({ onLoginSuccess }) {
             {/* Header / Brand */}
             <div>
               <div className="flex md:hidden items-center gap-2 mb-6">
-                <div className="bg-blue-600 p-1.5 rounded-lg text-white">
-                  <Factory className="h-5 w-5" />
+                <div className="bg-white p-1 rounded-lg border border-slate-200 h-9 w-9 overflow-hidden flex items-center justify-center">
+                  <img src={logoImg} alt="BlueWhale Logo" className="h-full w-full object-contain" />
                 </div>
-                <span className="font-extrabold text-slate-800 uppercase tracking-wider text-sm">Company Manufacturing ERP</span>
+                <span className="font-extrabold text-slate-800 uppercase tracking-wider text-sm">BlueWhale Manufacturing ERP</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-extrabold text-slate-850 tracking-tight">Sign In</h2>
               <p className="text-sm text-slate-500 mt-1">Please enter your credentials to access your portal</p>
@@ -393,7 +393,7 @@ export default function LoginPage({ onLoginSuccess }) {
 
           {/* Right Footer Info */}
           <div className="text-center text-xs text-slate-400 mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-2 justify-between">
-            <span>&copy; 2026 Company Manufacturing ERP</span>
+            <span>&copy; 2026 BlueWhale Manufacturing ERP</span>
             <span className="font-medium text-slate-500 flex items-center justify-center gap-1">
               <ShieldCheck className="h-3.5 w-3.5 text-green-500" /> Secure Terminal
             </span>
